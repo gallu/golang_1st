@@ -1,0 +1,7 @@
+go mod init myapp
+
+実行の仕方
+go run *.go
+にしないと「同じディレクトリ内とかの、同一パッケージの参照」が出来ないっぽい
+
+go build -o a.out *.go
