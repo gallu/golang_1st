@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"os"
@@ -60,6 +61,29 @@ func main() {
 			fmt.Print(string(bytes[:count]))
 		}
 		fmt.Println("fin")
+	}
+
+	// 行単位で読み込む方法
+	// XXX あと、このbufioってのを使うと(メモリ効率がよいから)速度が速くなる、っぽい?
+	// https://zenn.dev/hsaki/books/golang-io-package/viewer/bufio
+	{
+		f, err := os.Open("./read.txt")
+		if err != nil {
+			panic(err)
+		}
+		defer f.Close()
+
+		// スキャナ、ってのを用意する(切れ目のトークンは選べるみたいなんだけど、今回はデフォで)
+		sc := bufio.NewScanner(f)
+
+		// ぶんまわす
+		i := 0
+		for sc.Scan() {
+			line := sc.Text()
+			fmt.Println(i, line)
+			i++
+		}
+
 	}
 
 }

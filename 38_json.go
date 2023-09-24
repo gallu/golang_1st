@@ -105,4 +105,18 @@ func main() {
 		fmt.Println(whole)
 		fmt.Println(whole.Name)
 	}
+
+	// 書き出し側
+	{
+		parts := Parts{
+			Id:   123,
+			Name: "hoge",
+		}
+		// ここもbyteなんだ。なるほど。
+		json_string, err := json.Marshal(parts)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(string(json_string))
+	}
 }
