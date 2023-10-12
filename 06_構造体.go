@@ -119,4 +119,22 @@ func main() {
 			fmt.Println(u == uUnknown2)
 		*/
 	}
+
+	// 構造体とポインタ
+	{
+		u := &user{
+			id:   1,
+			name: "hogera",
+		}
+		fmt.Printf("型はポインタ %T \n", u)
+
+		// 基本は「実体参照」してからアクセス
+		(*u).id = 777
+		fmt.Println(u)
+
+		// でも実体参照、省略できるぽ
+		// XXX この辺微妙にC++と違うから注意
+		u.id = 999
+		fmt.Println(u)
+	}
 }

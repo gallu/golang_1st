@@ -116,4 +116,22 @@ func main() {
 		fmt.Println(bs)
 		fmt.Println(rs)
 	}
+
+	// スライス、そもそもがポインタだから、関数に渡すと破壊的な変更が出来るぽ
+	{
+		s := make([]int, 10)
+		fmt.Printf("%T(%p): len:%d, cap:%d \n", s, s, len(s), cap(s))
+		fmt.Println(s)
+		sTest(s)
+		fmt.Println(s)
+	}
+}
+
+// 「スライスってポインタだよねぇ」確認用関数
+func sTest(s []int) {
+	fmt.Printf("\tin func) %T(%p): len:%d, cap:%d \n", s, s, len(s), cap(s))
+	for i, _ := range s {
+		// てけとうにデータぶち込む
+		s[i] = 9
+	}
 }

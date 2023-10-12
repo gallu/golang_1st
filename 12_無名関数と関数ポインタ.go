@@ -60,4 +60,24 @@ func main() {
 		s := fn(123)
 		fmt.Println(s)
 	}
+
+	// fibonacciで確認。クロージャの時、変数は「同じ実体」を見ているっぽい。
+	{
+		f := fibonacci()
+		for i := 0; i < 10; i++ {
+			fmt.Println(f())
+		}
+	}
+}
+
+// 必要ない宣言な気もするけど、まぁ勉強かねて
+type fTest func() int
+
+func fibonacci() fTest {
+	a, b := 1, 0
+	return func() int {
+		fmt.Printf("%p \n", &a)
+		a, b = b, a+b
+		return a
+	}
 }
