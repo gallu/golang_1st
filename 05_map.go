@@ -38,4 +38,16 @@ func main() {
 		}
 		fmt.Println(harr)
 	}
+	// make使う書き方
+	{
+		// mapの時のmakeの第二引数は、基本、指定しなくてもいいぽ
+		// https://qiita.com/donko_/items/e64a09e16561f9870f05
+		// m := make(map[string]string, 10)
+		m := make(map[string]string)
+		fmt.Println(m)
+		m["hoge"] = "hogeValue"
+		m["foo"] = "fooValue"
+		fmt.Println(m)
+		fmt.Println(len(m)) // mapのサイズ見るときはこっち
+	}
 }
