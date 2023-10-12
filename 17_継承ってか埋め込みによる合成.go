@@ -14,9 +14,11 @@ type PlayUser struct {
 }
 
 // なんか慣習的にこーゆーメソッド作る事も多い、の???
-func newPlayUser(id int, name, gameName string) *PlayUser {
+func NewPlayUser(id int, name, gameName string) *PlayUser {
 	p := new(PlayUser)
+	//p.User.id = id // 埋め込んだの、明示してもしなくてもいいぽい
 	p.id = id
+	// p.User.name = name // 埋め込んだの、明示してもしなくてもいいぽい
 	p.name = name
 	p.gameName = gameName
 
@@ -36,7 +38,10 @@ func (p PlayUser) getData() string {
 func main() {
 	{
 		p := PlayUser{
-			// 明示しなきゃいけないんだ
+			// これは駄目ぽ
+			// id:       1,
+			// name:     "gallu",
+			// この書き方だと明示しなきゃいけないんだ
 			User: User{
 				id:   1,
 				name: "gallu",
@@ -61,7 +66,7 @@ func main() {
 	}
 	// newっぽいこと
 	{
-		p := newPlayUser(1, "may", "DnD")
+		p := NewPlayUser(1, "may", "DnD")
 		fmt.Println(p)
 		fmt.Println(p.getName())
 		fmt.Println(p.getData())
