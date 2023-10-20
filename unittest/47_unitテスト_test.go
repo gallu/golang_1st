@@ -29,8 +29,8 @@ func Test最初のテストAdd(t *testing.T) {
 			{
 				name: "111, 222",
 				args: []int{111, 222},
-				//want: 333,
-				want: 334, // エラーにしてみる
+				want: 333,
+				//want: 334, // エラーにしてみる
 			},
 		}
 		// ぶん回し
@@ -39,6 +39,18 @@ func Test最初のテストAdd(t *testing.T) {
 			if got != datum.want {
 				t.Errorf("%s: get %d, want %d", datum.name, got, datum.want)
 			}
+		}
+	}
+}
+
+// publicじゃないメソッドでもテストできる？ できるぽい
+func Test最初のテストhoge(t *testing.T) {
+	// 一番原始的な感じ?
+	{
+		got := hoge(1)
+		want := 2
+		if got != want {
+			t.Errorf("get %d, want %d", got, want)
 		}
 	}
 }

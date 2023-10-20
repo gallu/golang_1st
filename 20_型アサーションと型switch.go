@@ -4,6 +4,11 @@ import (
 	"fmt"
 )
 
+type SHoge struct {
+	Id   int
+	Name string
+}
+
 func main() {
 	// anyの時に「この型、って前提でいれる～」の指定が出来るぽ
 	{
@@ -27,6 +32,22 @@ func main() {
 			fmt.Println("アサーションNG!!")
 		} else {
 			fmt.Println(j)
+		}
+	}
+	// アサーション、ようは「モワっとさせた型を元に戻す」的な？
+	{
+		var sha any = SHoge{
+			Id:   1,
+			Name: "hoge",
+		}
+		fmt.Println(sha) // 一応出力はできるぽ
+		// sha.Id = 999 // 「構造体としての操作」はでけない
+		sh, ok := sha.(SHoge)
+		if !ok {
+			fmt.Println("アサーションNG!!")
+		} else {
+			sh.Id = 999 // こっちは当然、できる
+			fmt.Println(sh)
 		}
 	}
 
