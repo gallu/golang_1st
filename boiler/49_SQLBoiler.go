@@ -19,17 +19,59 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close() // XXX これ、やらなくてもよい???
+	defer db.Close()      // XXX これ、やらなくてもよい???
+	boil.DebugMode = true // これあるとSQL文とか把握できる
 	boil.SetDB(db)
 
-	ctx := context.Background()
-	//gt, _ := models.GoTests().All(context.Background(), db)
-	gt, err := models.FindGoTest(ctx, db, 1)
-	//gt, _ := models.GoTests(qm.Where("go_test_id=?", 1)).One(ctx, db)
-	// gt, err := models.GoTests().All(ctx, db)
-	if err != nil {
-		panic(err)
+	{
+		ctx := context.Background()
+		//gt, _ := models.GoTests().All(context.Background(), db)
+		//gt, err := models.FindGoTest(ctx, db, 1)
+		gt, err := models.FindGoTest(ctx, db, 999)
+		//gt, _ := models.GoTests(qm.Where("go_test_id=?", 1)).One(ctx, db)
+		// gt, err := models.GoTests().All(ctx, db)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				fmt.Println("row not find")
+			} else {
+				fmt.Println("in panic")
+				fmt.Println(err)
+				panic(err)
+
+			}
+		} else {
+			fmt.Println("GoTest:", gt)
+			fmt.Printf("%T \n", gt)
+			//fmt.Println(string(gt.BString))
+		}
 	}
-	fmt.Println("GoTest:", gt)
-	fmt.Println(string(gt.BString))
+
+	// トラン切る
+	{
+		ctx := context.Background()
+		tx, err := boil.BeginTx(ctx, nil)
+		if err != nil {
+			panic(err)
+		}
+
+		gt, err := models.FindGoTest(ctx, tx, 1)
+		//gt, _ := models.GoTests(qm.Where("go_test_id=?", 1)).One(ctx, db)
+		// gt, err := models.GoTests().All(ctx, db)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				fmt.Println("row not find")
+			} else {
+				fmt.Println("in panic")
+				fmt.Println(err)
+				panic(err)
+			}
+			tx.Rollback()
+			return
+		}
+		fmt.Println("GoTest:", gt)
+		fmt.Printf("%T \n", gt)
+		//fmt.Println(string(gt.BString))
+
+		tx.Commit()
+	}
 }

@@ -18,9 +18,8 @@ go get github.com/volatiletech/sqlboiler/v4/drivers/sqlboiler-mysql
 mkdir models
 
 # とりあえずPATH通しておく
+# XXX これ、毎回必要ぽ。 profileとかに入れておく？？？
 export PATH="$PATH:$(go env GOPATH)/bin"
-
-
 
 
 pkgname="entity"
@@ -29,6 +28,8 @@ output="domain/entity"
 
 # 
 sqlboiler mysql -c config.toml -o models [--no-tests]
+
+
 
 (DB接続に失敗すると以下のメッセージ。host名ずっと間違えてた orz
 Error: unable to initialize tables: unable to fetch table data: driver (/home/furu/go/bin/sqlboiler-mysql) exited non-zero: exit status 1

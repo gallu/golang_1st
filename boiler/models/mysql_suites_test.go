@@ -6,5 +6,7 @@ package models
 import "testing"
 
 func TestUpsert(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSUpsert)
+
 	t.Run("GoTests", testGoTestsUpsert)
 }
