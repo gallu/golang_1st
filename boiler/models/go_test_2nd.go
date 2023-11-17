@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/friendsofgo/errors"
+	"github.com/volatiletech/null/v8"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"github.com/volatiletech/sqlboiler/v4/queries"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
@@ -27,7 +28,7 @@ type GoTest2ND struct {
 	// イメージとしてuser_id的なの
 	UserID uint64 `boil:"user_id" json:"user_id" toml:"user_id" yaml:"user_id"`
 	// なんか数量的なの
-	Num int64 `boil:"num" json:"num" toml:"num" yaml:"num"`
+	Num null.Int64 `boil:"num" json:"num,omitempty" toml:"num" yaml:"num,omitempty"`
 	// 日付
 	CreatedAt time.Time `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
 	// 日付
@@ -90,28 +91,43 @@ func (w whereHelperuint64) NIN(slice []uint64) qm.QueryMod {
 	return qm.WhereNotIn(fmt.Sprintf("%s NOT IN ?", w.field), values...)
 }
 
-type whereHelperint64 struct{ field string }
+type whereHelpernull_Int64 struct{ field string }
 
-func (w whereHelperint64) EQ(x int64) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.EQ, x) }
-func (w whereHelperint64) NEQ(x int64) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.NEQ, x) }
-func (w whereHelperint64) LT(x int64) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.LT, x) }
-func (w whereHelperint64) LTE(x int64) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.LTE, x) }
-func (w whereHelperint64) GT(x int64) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.GT, x) }
-func (w whereHelperint64) GTE(x int64) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.GTE, x) }
-func (w whereHelperint64) IN(slice []int64) qm.QueryMod {
+func (w whereHelpernull_Int64) EQ(x null.Int64) qm.QueryMod {
+	return qmhelper.WhereNullEQ(w.field, false, x)
+}
+func (w whereHelpernull_Int64) NEQ(x null.Int64) qm.QueryMod {
+	return qmhelper.WhereNullEQ(w.field, true, x)
+}
+func (w whereHelpernull_Int64) LT(x null.Int64) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LT, x)
+}
+func (w whereHelpernull_Int64) LTE(x null.Int64) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LTE, x)
+}
+func (w whereHelpernull_Int64) GT(x null.Int64) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GT, x)
+}
+func (w whereHelpernull_Int64) GTE(x null.Int64) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GTE, x)
+}
+func (w whereHelpernull_Int64) IN(slice []int64) qm.QueryMod {
 	values := make([]interface{}, 0, len(slice))
 	for _, value := range slice {
 		values = append(values, value)
 	}
 	return qm.WhereIn(fmt.Sprintf("%s IN ?", w.field), values...)
 }
-func (w whereHelperint64) NIN(slice []int64) qm.QueryMod {
+func (w whereHelpernull_Int64) NIN(slice []int64) qm.QueryMod {
 	values := make([]interface{}, 0, len(slice))
 	for _, value := range slice {
 		values = append(values, value)
 	}
 	return qm.WhereNotIn(fmt.Sprintf("%s NOT IN ?", w.field), values...)
 }
+
+func (w whereHelpernull_Int64) IsNull() qm.QueryMod    { return qmhelper.WhereIsNull(w.field) }
+func (w whereHelpernull_Int64) IsNotNull() qm.QueryMod { return qmhelper.WhereIsNotNull(w.field) }
 
 type whereHelpertime_Time struct{ field string }
 
@@ -137,13 +153,13 @@ func (w whereHelpertime_Time) GTE(x time.Time) qm.QueryMod {
 var GoTest2NDWhere = struct {
 	GoTest2NDID whereHelperuint64
 	UserID      whereHelperuint64
-	Num         whereHelperint64
+	Num         whereHelpernull_Int64
 	CreatedAt   whereHelpertime_Time
 	UpdatedAt   whereHelpertime_Time
 }{
 	GoTest2NDID: whereHelperuint64{field: "`go_test_2nd`.`go_test_2nd_id`"},
 	UserID:      whereHelperuint64{field: "`go_test_2nd`.`user_id`"},
-	Num:         whereHelperint64{field: "`go_test_2nd`.`num`"},
+	Num:         whereHelpernull_Int64{field: "`go_test_2nd`.`num`"},
 	CreatedAt:   whereHelpertime_Time{field: "`go_test_2nd`.`created_at`"},
 	UpdatedAt:   whereHelpertime_Time{field: "`go_test_2nd`.`updated_at`"},
 }
