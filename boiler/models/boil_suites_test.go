@@ -12,50 +12,63 @@ import "testing"
 // It does NOT run each operation group in parallel.
 // Separating the tests thusly grants avoidance of Postgres deadlocks.
 func TestParent(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDS)
 	t.Run("GoTests", testGoTests)
 }
 
 func TestDelete(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSDelete)
 	t.Run("GoTests", testGoTestsDelete)
 }
 
 func TestQueryDeleteAll(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSQueryDeleteAll)
 	t.Run("GoTests", testGoTestsQueryDeleteAll)
 }
 
 func TestSliceDeleteAll(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSSliceDeleteAll)
 	t.Run("GoTests", testGoTestsSliceDeleteAll)
 }
 
 func TestExists(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSExists)
 	t.Run("GoTests", testGoTestsExists)
 }
 
 func TestFind(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSFind)
 	t.Run("GoTests", testGoTestsFind)
 }
 
 func TestBind(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSBind)
 	t.Run("GoTests", testGoTestsBind)
 }
 
 func TestOne(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSOne)
 	t.Run("GoTests", testGoTestsOne)
 }
 
 func TestAll(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSAll)
 	t.Run("GoTests", testGoTestsAll)
 }
 
 func TestCount(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSCount)
 	t.Run("GoTests", testGoTestsCount)
 }
 
 func TestHooks(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSHooks)
 	t.Run("GoTests", testGoTestsHooks)
 }
 
 func TestInsert(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSInsert)
+	t.Run("GoTest2NDS", testGoTest2NDSInsertWhitelist)
 	t.Run("GoTests", testGoTestsInsert)
 	t.Run("GoTests", testGoTestsInsertWhitelist)
 }
@@ -101,21 +114,26 @@ func TestToManySet(t *testing.T) {}
 func TestToManyRemove(t *testing.T) {}
 
 func TestReload(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSReload)
 	t.Run("GoTests", testGoTestsReload)
 }
 
 func TestReloadAll(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSReloadAll)
 	t.Run("GoTests", testGoTestsReloadAll)
 }
 
 func TestSelect(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSSelect)
 	t.Run("GoTests", testGoTestsSelect)
 }
 
 func TestUpdate(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSUpdate)
 	t.Run("GoTests", testGoTestsUpdate)
 }
 
 func TestSliceUpdateAll(t *testing.T) {
+	t.Run("GoTest2NDS", testGoTest2NDSSliceUpdateAll)
 	t.Run("GoTests", testGoTestsSliceUpdateAll)
 }

@@ -4,7 +4,9 @@
 package models
 
 var TableNames = struct {
-	GoTests string
+	GoTest2ND string
+	GoTests   string
 }{
-	GoTests: "go_tests",
+	GoTest2ND: "go_test_2nd",
+	GoTests:   "go_tests",
 }
