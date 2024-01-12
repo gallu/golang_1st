@@ -212,7 +212,7 @@ func main() {
 			qm.Or2(models.GoTest2NDWhere.UserID.EQ(2)),
 			qm.Expr(
 				models.GoTest2NDWhere.Num.GTE(null.Int64From(55)),
-				models.GoTest2NDWhere.Num.IsNull(),
+				qm.Or2(models.GoTest2NDWhere.Num.IsNull()),
 			),
 		).All(ctx, db)
 		if err != nil {

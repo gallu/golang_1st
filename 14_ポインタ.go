@@ -19,6 +19,19 @@ func printHoge(h Hoge) {
 	fmt.Println("\t", h)
 }
 
+func dFunc1() int {
+	fmt.Printf("dFunc1")
+	return 1
+}
+func dFunc2() int {
+	fmt.Printf("dFunc1")
+	return 2
+}
+func dFunc3() int {
+	fmt.Printf("dFunc1")
+	return 3
+}
+
 func main() {
 	// XXX 前提として「引数は値渡し(なので、いってもポインタの値渡しまで)なので以下略
 	// スライスのポインタ周り
@@ -55,5 +68,14 @@ func main() {
 		printHoge(h)
 		// printHoge(ph) // これは流石にアウト
 		printHoge(*ph) // 実体化、これでよいぽい
+	}
+
+	// 関数ポインタ
+	{
+		// dfunc := dFunc1
+		var dfunc func() int = dFunc1
+		fmt.Printf("dfunc is %T \n", dfunc)
+		i := (*&dfunc)()
+		fmt.Println("i is ", i)
 	}
 }

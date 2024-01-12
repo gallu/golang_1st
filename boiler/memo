@@ -35,6 +35,25 @@ sqlboiler mysql -c config.toml -o models [--no-tests]
 Error: unable to initialize tables: unable to fetch table data: driver (/home/furu/go/bin/sqlboiler-mysql) exited non-zero: exit status 1
 )
 
+CREATE TABLE `go_tests` (
+  `go_test_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `string` varchar(128) NOT NULL COMMENT '文字列',
+  `b_string` varbinary(128) NOT NULL COMMENT 'バイナリ',
+  `num` int NOT NULL COMMENT '整数',
+  `created_at` datetime NOT NULL COMMENT '日付',
+  PRIMARY KEY (`go_test_id`),
+  UNIQUE KEY `go_test_id` (`go_test_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='golang用テストテーブル';
+
+ CREATE TABLE `go_test_2nd` (
+  `go_test_2nd_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL COMMENT 'イメージとしてuser_id的なの',
+  `num` bigint COMMENT 'なんか数量的なの',
+  `created_at` datetime NOT NULL COMMENT '日付',
+  `updated_at` datetime NOT NULL COMMENT '日付',
+  PRIMARY KEY (`go_test_2nd_id`),
+  UNIQUE KEY `uk_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='golang用テストテーブルその２';
 
 
 
