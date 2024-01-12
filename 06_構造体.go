@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type user struct {
 	id   int
@@ -135,6 +137,12 @@ func main() {
 		// でも実体参照、省略できるぽ
 		// XXX この辺微妙にC++と違うから注意
 		u.id = 999
+		fmt.Println(u)
+	}
+
+	// 「空」の確認
+	{
+		u := user{}
 		fmt.Println(u)
 	}
 }

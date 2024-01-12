@@ -16,5 +16,5 @@ const (
 
 func main() {
 	fmt.Println(s)
-	fmt.Println(id, name)
+	fmt.Println(Id, Name)
 }

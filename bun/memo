@@ -1,0 +1,11 @@
+       type User struct {
+	    ID    int    `bun:"id"`
+      	   Name  string `bun:"name"`
+	   Email string `bun:"email"`
+        }
+
+	users := []model.User{}
+	fetchErr := db.NewSelect().Model(&users).OrderExpr("id ASC").Limit(10).Scan(c)
+	if fetchErr != nil {
+		log.Printf("ユーザーの取得に失敗しました: %v", fetchErr)
+	}
