@@ -15,6 +15,12 @@ type Foo struct {
 	Age int
 }
 
+type Bar struct {
+	HogeBase
+	Id    int
+	Name2 string
+}
+
 func main() {
 	// まず使う
 	{
@@ -50,5 +56,31 @@ func main() {
 			panic(err)
 		}
 		fmt.Println("json: ", string(s)) // {"Id":1,"Name":"name","Age":123}
+	}
+
+	// 埋め込んだ構造体へのアクセスいろいろ
+	{
+		f := &Foo{
+			HogeBase: HogeBase{
+				Id:   1,
+				Name: "name",
+			},
+			Age: 123,
+		}
+		// ダイレクトでも埋め込み名はさんでもどっちでもいける
+		fmt.Println(f.Id, f.HogeBase.Id)
+
+		b := &Bar{
+			HogeBase: HogeBase{
+				Id:   1,
+				Name: "hoge",
+			},
+			Id:    123,
+			Name2: "bar name",
+		}
+		// 名前が競合すると「埋め込んでない」ほうが優先っぽい(仕様だと思うんだが、どうなんかねぇ?)
+		fmt.Println(b.Id, b.Name)
+		// 指定すればそれは当然「埋め込んだ側」が使われる
+		fmt.Println(b.HogeBase.Id, b.HogeBase.Name)
 	}
 }
